@@ -2,7 +2,6 @@ import json
 import requests
 import telebot
 import datetime
-import time
 from telegram_bot_calendar import DetailedTelegramCalendar, LSTEP
 
 from telebot import types
