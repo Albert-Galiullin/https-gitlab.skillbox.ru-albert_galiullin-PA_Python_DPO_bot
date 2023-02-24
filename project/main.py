@@ -211,7 +211,7 @@ def lowprice(message):
     url = "https://hotels4.p.rapidapi.com/locations/v3/search"
     querystring = {"q": message, "locale": "ru_RU", "langid": "1033", "siteid": "300000001"}
     headers = {
-        "X-RapidAPI-Key": "e286256686msh06fa57ce06529d1p14c198jsna35cd4c2918b",
+        "X-RapidAPI-Key": "537090d3f5msh85dc7d5dad03ed7p13abffjsn13a4aa3a0315",
         "X-RapidAPI-Host": "hotels4.p.rapidapi.com"
     }
     response = requests.request("GET", url, headers=headers, params=querystring)
@@ -243,7 +243,7 @@ def lowprice(message):
 
     headers = {
         "content-type": "application/json",
-        "X-RapidAPI-Key": "e286256686msh06fa57ce06529d1p14c198jsna35cd4c2918b",
+        "X-RapidAPI-Key": "537090d3f5msh85dc7d5dad03ed7p13abffjsn13a4aa3a0315",
         "X-RapidAPI-Host": "hotels4.p.rapidapi.com"
     }
 
@@ -283,7 +283,7 @@ def load_photo(a):
         }
         headers = {
             "content-type": "application/json",
-            "X-RapidAPI-Key": "e286256686msh06fa57ce06529d1p14c198jsna35cd4c2918b",
+            "X-RapidAPI-Key": "537090d3f5msh85dc7d5dad03ed7p13abffjsn13a4aa3a0315",
             "X-RapidAPI-Host": "hotels4.p.rapidapi.com"
         }
 
