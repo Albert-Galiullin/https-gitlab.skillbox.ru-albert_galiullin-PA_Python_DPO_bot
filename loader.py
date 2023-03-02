@@ -83,6 +83,7 @@ def lowprice(message):
     a1 = a1[:int(lst[3])]
     return a1
 
+
 def load_photo(a):
     url = "https://hotels4.p.rapidapi.com/properties/v2/detail"
     list_photo = []

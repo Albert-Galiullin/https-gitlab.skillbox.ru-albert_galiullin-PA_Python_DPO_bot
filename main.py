@@ -1,6 +1,6 @@
 from loader import bot
 import handlers  # noqa
-from handlers.set_bot_commands import set_default_commands
+from utils.set_bot_commands import set_default_commands
 
 
 
