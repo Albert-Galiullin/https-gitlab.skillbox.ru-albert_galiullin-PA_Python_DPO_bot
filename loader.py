@@ -63,8 +63,8 @@ def lowprice(message):
     response = requests.request("POST", url, json=payload, headers=headers)
     # print(response.text)
     data = json.loads(response.text)  # преобразуем в словарь - десериализация JSON
-    with open('req.json', 'w') as file:
-        json.dump(data, file, indent=4)
+    # with open('req.json', 'w') as file:
+    #     json.dump(data, file, indent=4)
     a0 = set(findkeys2(data, 'id'))
     a0 = list(a0)
     a1 = []

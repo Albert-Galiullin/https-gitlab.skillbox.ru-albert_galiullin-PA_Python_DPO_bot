@@ -6,6 +6,8 @@ from telegram_bot_calendar import DetailedTelegramCalendar, LSTEP
 from telebot import types
 from telebot.types import Message
 from loader import *
+from utils.sql_history import *
+
 # from keyboards.inline.photo_ch import get_am_hotels
 
 
@@ -35,6 +37,23 @@ def bot_echo(message: Message):
             with open('history.log', 'r', encoding='utf-8') as file:
                 data_his = file.read()
             bot.send_message(message.from_user.id, data_his)
+            connection = create_connection("hist_app.sqlite")
+            # c = connection.cursor()
+
+            print('Query    Date query         Hotel                            Price/Total  From city  Lat.    Lon.')
+            print(
+                '____________________________________________________________________________________________________')
+
+            select_history = "SELECT * from history"
+            history = execute_read_query(connection, select_history)
+
+            for row in history:
+                print(row)
+
+
+
+
+
         except IOError:
             bot.send_message(message.from_user.id, 'Истории пока нет')
     elif message.text == '/help':
@@ -148,11 +167,18 @@ def get_photo(call):
                           ', Расстояние до центра: ' + str(a1[i][4]) + ', Широта: ' + str(a1[i][5]) + \
                           ', Долгота: ' + str(a1[i][6]) + '\n'
 
-                with open('history.log', 'w', encoding='utf-8') as file:
-                    info = '\nРежим запроса: ' + lst[0] + '\nВремя запроса ' + (lst[1])[:16] + '\n' + answer
-                    file.write(info)
+
+
+
+                work_table(lst[0], (lst[1])[:16], a1[i][1], str(round(a1[i][3], 2)),
+                           str(date_hotels[2] * round(a1[i][3], 2)),
+                           str(a1[i][4]), str(a1[i][5]), str(a1[i][6]))
 
             print(answer)
+            with open('history.log', 'w', encoding='utf-8') as file:
+                info = '\nРежим запроса: ' + lst[0] + '\nВремя запроса ' + (lst[1])[:16] + '\n' + answer
+                file.write(info)
+
             bot.send_message(call.from_user.id, answer, parse_mode='html')
 
 @bot.message_handler(content_types=['text'])
@@ -174,11 +200,20 @@ def get_photo_amount(message):
                       ', Расстояние до центра: ' + str(a1[i][4]) + ', Широта: ' + str(a1[i][5]) + \
                       ', Долгота: ' + str(a1[i][6]) + '\n'
 
+
+            work_table(lst[0], (lst[1])[:16], a1[i][1], str(round(a1[i][3], 2)),
+                       str(date_hotels[2] * round(a1[i][3], 2)),
+                       str(a1[i][4]), str(a1[i][5]), str(a1[i][6]))
+
+
+
         print(answer)
 
         with open('history.log', 'w', encoding='utf-8') as file:
             info = '\nРежим запроса: '+ lst[0] + '\nВремя запроса ' + lst[1] + '\n'+answer
             file.write(info)
+
+
 
         bot.send_message(message.from_user.id, answer, parse_mode='html')
         bot.send_message(message.from_user.id, 'Подождите, загружается информация...', parse_mode='html')
@@ -198,7 +233,7 @@ def get_photo_amount(message):
             for j in range(1, cicle):
                 a = types.InputMediaPhoto(lst2[i][j])
                 medias.append(a)
-            print(medias)
+            # print(medias)
             bot.send_media_group(message.from_user.id, medias)
             medias.clear()
 
